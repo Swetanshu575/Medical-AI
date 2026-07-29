@@ -1,0 +1,6 @@
+{
+  "name": "Hinglish Avatar Architect",
+  "description": "Interactive architect workspace for building low-latency, emotionally responsive Hinglish conversational AI avatars.",
+  "requestFramePermissions": ["microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

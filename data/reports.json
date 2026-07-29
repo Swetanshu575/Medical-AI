@@ -1,0 +1,642 @@
+[
+  {
+    "id": "e859d6b4-ecb5-4cd5-a1a6-c038b8aa169b",
+    "title": "की करवा?",
+    "status": "ready",
+    "startedAt": "2026-07-29T10:39:57.083Z",
+    "summary": "Report ready. This digital twin snapshot was saved from 3 conversation turns, covering general health consultation.",
+    "transcript": [
+      {
+        "id": "5d7c55e2-22aa-4705-9c81-1180245a6530",
+        "role": "doctor",
+        "text": "Hello! Main Dr. AI hoon, Swetanshu Prasad dwara banaya gaya ek expert medical assistant. Main aapki health aur wellness se judi samasyaon ke liye helpful aur knowledgeable salaah deta hoon, woh bhi Hinglish mein. Bataiye, main aaj aapki kaise madad kar sakta hoon? Any specific health concern? Aur haan, serious concerns ke liye doctor se directly baat karna mat bhooliyega!",
+        "createdAt": "2026-07-29T10:40:20.891Z",
+        "final": true
+      },
+      {
+        "id": "e67b511a-b1d3-44ce-b579-56060cc86db7",
+        "role": "patient",
+        "text": "की करवा? हमर कुछ करे के नहीं है। हमके ना मिलेला।",
+        "createdAt": "2026-07-29T10:40:50.336Z",
+        "final": true
+      },
+      {
+        "id": "485799ed-6c95-41bf-a731-de208d5f5f8a",
+        "role": "doctor",
+        "text": "Lag raha hai ki aap kaafi pareshan hain. Kya aap mujhe bata sakte hain ki exactly kya ho raha hai? Kis cheez mein aapka mann nahi lag raha hai? Thoda mujhe detail mein batayenge toh main aapki madad kar paoonga. Koi purani problem hai ya kuch naya shuru hua hai?",
+        "createdAt": "2026-07-29T10:40:50.337Z",
+        "final": true
+      }
+    ],
+    "digitalTwin": {
+      "patient": {
+        "label": "Patient",
+        "sessionId": "e859d6b4-ecb5-4cd5-a1a6-c038b8aa169b",
+        "reportStatus": "ready",
+        "language": "Hinglish voice consultation"
+      },
+      "clinicalSnapshot": {
+        "chiefConcerns": [
+          "General health consultation"
+        ],
+        "reportedMetrics": [
+          "No numeric vitals or lab values captured"
+        ],
+        "lifestyleSignals": [
+          "Lifestyle history not yet captured"
+        ],
+        "riskSignals": [
+          "No urgent red-flag symptoms captured in transcript"
+        ]
+      },
+      "carePlan": [
+        "Aur haan, serious concerns ke liye doctor se directly baat karna mat bhooliyega!"
+      ],
+      "conversationHistory": [
+        {
+          "id": "5d7c55e2-22aa-4705-9c81-1180245a6530",
+          "role": "doctor",
+          "text": "Hello! Main Dr. AI hoon, Swetanshu Prasad dwara banaya gaya ek expert medical assistant. Main aapki health aur wellness se judi samasyaon ke liye helpful aur knowledgeable salaah deta hoon, woh bhi Hinglish mein. Bataiye, main aaj aapki kaise madad kar sakta hoon? Any specific health concern? Aur haan, serious concerns ke liye doctor se directly baat karna mat bhooliyega!",
+          "createdAt": "2026-07-29T10:40:20.891Z",
+          "final": true
+        },
+        {
+          "id": "e67b511a-b1d3-44ce-b579-56060cc86db7",
+          "role": "patient",
+          "text": "की करवा? हमर कुछ करे के नहीं है। हमके ना मिलेला।",
+          "createdAt": "2026-07-29T10:40:50.336Z",
+          "final": true
+        },
+        {
+          "id": "485799ed-6c95-41bf-a731-de208d5f5f8a",
+          "role": "doctor",
+          "text": "Lag raha hai ki aap kaafi pareshan hain. Kya aap mujhe bata sakte hain ki exactly kya ho raha hai? Kis cheez mein aapka mann nahi lag raha hai? Thoda mujhe detail mein batayenge toh main aapki madad kar paoonga. Koi purani problem hai ya kuch naya shuru hua hai?",
+          "createdAt": "2026-07-29T10:40:50.337Z",
+          "final": true
+        }
+      ],
+      "reportReady": true,
+      "lastUpdated": "2026-07-29T10:40:50.338Z"
+    },
+    "endedAt": "2026-07-29T10:40:50.337Z"
+  },
+  {
+    "id": "4120c4cf-4897-4928-99e4-b3ebfce303ea",
+    "title": "नहीं दे रही। यह तो मुंह",
+    "status": "ready",
+    "startedAt": "2026-07-29T10:39:40.304Z",
+    "summary": "Report ready. This digital twin snapshot was saved from 3 conversation turns, covering general health consultation.",
+    "transcript": [
+      {
+        "id": "31d67767-ca62-48d8-b62a-89b91dd07735",
+        "role": "doctor",
+        "text": "Hello there! Main Dr. AI hoon, Swetanshu Prasad dwara banaya gaya ek conversational AI medical assistant. Aapki health queries aur wellness ke liye main yahan hoon. So, help request batayye, main kaise madad kar sakta hoon aaj?",
+        "createdAt": "2026-07-29T10:39:46.908Z",
+        "final": true
+      },
+      {
+        "id": "c7f3ac8f-f904-431f-873b-74b65289a031",
+        "role": "patient",
+        "text": "नहीं दे रही। यह तो मुंह",
+        "createdAt": "2026-07-29T10:39:55.526Z",
+        "final": true
+      },
+      {
+        "id": "4f5d1eb9-401f-48c4-8d6c-44ef12f4b9c0",
+        "role": "doctor",
+        "text": "Oh, lagta hai kuch gadbad ho gayi. Kya aap wapis se bata sakte hain aap kya keh rahe the? Main help karne ke liye taiyar hoon.",
+        "createdAt": "2026-07-29T10:39:55.526Z",
+        "final": true
+      }
+    ],
+    "digitalTwin": {
+      "patient": {
+        "label": "Patient",
+        "sessionId": "4120c4cf-4897-4928-99e4-b3ebfce303ea",
+        "reportStatus": "ready",
+        "language": "Hinglish voice consultation"
+      },
+      "clinicalSnapshot": {
+        "chiefConcerns": [
+          "General health consultation"
+        ],
+        "reportedMetrics": [
+          "No numeric vitals or lab values captured"
+        ],
+        "lifestyleSignals": [
+          "Lifestyle history not yet captured"
+        ],
+        "riskSignals": [
+          "No urgent red-flag symptoms captured in transcript"
+        ]
+      },
+      "carePlan": [
+        "Review symptoms and medical history with a licensed clinician.",
+        "Carry current medicines, lab reports, and vitals for the next appointment."
+      ],
+      "conversationHistory": [
+        {
+          "id": "31d67767-ca62-48d8-b62a-89b91dd07735",
+          "role": "doctor",
+          "text": "Hello there! Main Dr. AI hoon, Swetanshu Prasad dwara banaya gaya ek conversational AI medical assistant. Aapki health queries aur wellness ke liye main yahan hoon. So, help request batayye, main kaise madad kar sakta hoon aaj?",
+          "createdAt": "2026-07-29T10:39:46.908Z",
+          "final": true
+        },
+        {
+          "id": "c7f3ac8f-f904-431f-873b-74b65289a031",
+          "role": "patient",
+          "text": "नहीं दे रही। यह तो मुंह",
+          "createdAt": "2026-07-29T10:39:55.526Z",
+          "final": true
+        },
+        {
+          "id": "4f5d1eb9-401f-48c4-8d6c-44ef12f4b9c0",
+          "role": "doctor",
+          "text": "Oh, lagta hai kuch gadbad ho gayi. Kya aap wapis se bata sakte hain aap kya keh rahe the? Main help karne ke liye taiyar hoon.",
+          "createdAt": "2026-07-29T10:39:55.526Z",
+          "final": true
+        }
+      ],
+      "reportReady": true,
+      "lastUpdated": "2026-07-29T10:39:55.528Z"
+    },
+    "endedAt": "2026-07-29T10:39:55.526Z"
+  },
+  {
+    "id": "b7d60bc2-5786-4c25-a478-48f8f49e9920",
+    "title": "Why do you look sad?",
+    "status": "ready",
+    "startedAt": "2026-07-29T10:39:21.452Z",
+    "summary": "Report ready. This digital twin snapshot was saved from 3 conversation turns, covering general health consultation.",
+    "transcript": [
+      {
+        "id": "618468fc-414d-4a39-a0c4-ee8d6ac351c1",
+        "role": "doctor",
+        "text": "Hello! Main",
+        "createdAt": "2026-07-29T10:39:22.854Z",
+        "final": true
+      },
+      {
+        "id": "9c46e28c-3734-4427-b5ba-0b1329cb44e8",
+        "role": "patient",
+        "text": "Why do you look sad?",
+        "createdAt": "2026-07-29T10:39:31.488Z",
+        "final": true
+      },
+      {
+        "id": "759d6b20-1dfb-422a-bf1e-31ac6b9c0d29",
+        "role": "doctor",
+        "text": "Main bilkul thik hoon! Aapko aisa kyun laga ki main sad hoon? Kya aap kuch baat karna chahte hain? Tell me how I can help.",
+        "createdAt": "2026-07-29T10:39:31.488Z",
+        "final": true
+      }
+    ],
+    "digitalTwin": {
+      "patient": {
+        "label": "Patient",
+        "sessionId": "b7d60bc2-5786-4c25-a478-48f8f49e9920",
+        "reportStatus": "ready",
+        "language": "Hinglish voice consultation"
+      },
+      "clinicalSnapshot": {
+        "chiefConcerns": [
+          "General health consultation"
+        ],
+        "reportedMetrics": [
+          "No numeric vitals or lab values captured"
+        ],
+        "lifestyleSignals": [
+          "Lifestyle history not yet captured"
+        ],
+        "riskSignals": [
+          "No urgent red-flag symptoms captured in transcript"
+        ]
+      },
+      "carePlan": [
+        "Review symptoms and medical history with a licensed clinician.",
+        "Carry current medicines, lab reports, and vitals for the next appointment."
+      ],
+      "conversationHistory": [
+        {
+          "id": "618468fc-414d-4a39-a0c4-ee8d6ac351c1",
+          "role": "doctor",
+          "text": "Hello! Main",
+          "createdAt": "2026-07-29T10:39:22.854Z",
+          "final": true
+        },
+        {
+          "id": "9c46e28c-3734-4427-b5ba-0b1329cb44e8",
+          "role": "patient",
+          "text": "Why do you look sad?",
+          "createdAt": "2026-07-29T10:39:31.488Z",
+          "final": true
+        },
+        {
+          "id": "759d6b20-1dfb-422a-bf1e-31ac6b9c0d29",
+          "role": "doctor",
+          "text": "Main bilkul thik hoon! Aapko aisa kyun laga ki main sad hoon? Kya aap kuch baat karna chahte hain? Tell me how I can help.",
+          "createdAt": "2026-07-29T10:39:31.488Z",
+          "final": true
+        }
+      ],
+      "reportReady": true,
+      "lastUpdated": "2026-07-29T10:39:37.659Z"
+    },
+    "endedAt": "2026-07-29T10:39:37.655Z"
+  },
+  {
+    "id": "aec4c6de-3caa-434e-b559-7c9a0133db88",
+    "title": "Voice consultation report",
+    "status": "ready",
+    "startedAt": "2026-07-29T10:29:49.208Z",
+    "summary": "Report ready. No spoken transcript was captured before the consultation ended.",
+    "transcript": [],
+    "digitalTwin": {
+      "patient": {
+        "label": "Patient",
+        "sessionId": "aec4c6de-3caa-434e-b559-7c9a0133db88",
+        "reportStatus": "ready",
+        "language": "Hinglish voice consultation"
+      },
+      "clinicalSnapshot": {
+        "chiefConcerns": [
+          "General health consultation"
+        ],
+        "reportedMetrics": [
+          "No numeric vitals or lab values captured"
+        ],
+        "lifestyleSignals": [
+          "Lifestyle history not yet captured"
+        ],
+        "riskSignals": [
+          "No urgent red-flag symptoms captured in transcript"
+        ]
+      },
+      "carePlan": [
+        "Review symptoms and medical history with a licensed clinician.",
+        "Carry current medicines, lab reports, and vitals for the next appointment."
+      ],
+      "conversationHistory": [],
+      "reportReady": true,
+      "lastUpdated": "2026-07-29T10:29:49.785Z"
+    },
+    "endedAt": "2026-07-29T10:29:49.785Z"
+  },
+  {
+    "id": "8b86fb37-dcd7-445b-9d7d-578f0fb217c4",
+    "title": "Voice consultation report",
+    "status": "ready",
+    "startedAt": "2026-07-29T10:29:23.767Z",
+    "summary": "Report ready. No spoken transcript was captured before the consultation ended.",
+    "transcript": [],
+    "digitalTwin": {
+      "patient": {
+        "label": "Patient",
+        "sessionId": "8b86fb37-dcd7-445b-9d7d-578f0fb217c4",
+        "reportStatus": "ready",
+        "language": "Hinglish voice consultation"
+      },
+      "clinicalSnapshot": {
+        "chiefConcerns": [
+          "General health consultation"
+        ],
+        "reportedMetrics": [
+          "No numeric vitals or lab values captured"
+        ],
+        "lifestyleSignals": [
+          "Lifestyle history not yet captured"
+        ],
+        "riskSignals": [
+          "No urgent red-flag symptoms captured in transcript"
+        ]
+      },
+      "carePlan": [
+        "Review symptoms and medical history with a licensed clinician.",
+        "Carry current medicines, lab reports, and vitals for the next appointment."
+      ],
+      "conversationHistory": [],
+      "reportReady": true,
+      "lastUpdated": "2026-07-29T10:29:24.253Z"
+    },
+    "endedAt": "2026-07-29T10:29:24.253Z"
+  },
+  {
+    "id": "37984e97-24d2-430e-8cf3-6fd929344002",
+    "title": "Voice consultation report",
+    "status": "ready",
+    "startedAt": "2026-07-29T10:28:58.645Z",
+    "summary": "Report ready. No spoken transcript was captured before the consultation ended.",
+    "transcript": [],
+    "digitalTwin": {
+      "patient": {
+        "label": "Patient",
+        "sessionId": "37984e97-24d2-430e-8cf3-6fd929344002",
+        "reportStatus": "ready",
+        "language": "Hinglish voice consultation"
+      },
+      "clinicalSnapshot": {
+        "chiefConcerns": [
+          "General health consultation"
+        ],
+        "reportedMetrics": [
+          "No numeric vitals or lab values captured"
+        ],
+        "lifestyleSignals": [
+          "Lifestyle history not yet captured"
+        ],
+        "riskSignals": [
+          "No urgent red-flag symptoms captured in transcript"
+        ]
+      },
+      "carePlan": [
+        "Review symptoms and medical history with a licensed clinician.",
+        "Carry current medicines, lab reports, and vitals for the next appointment."
+      ],
+      "conversationHistory": [],
+      "reportReady": true,
+      "lastUpdated": "2026-07-29T10:28:59.179Z"
+    },
+    "endedAt": "2026-07-29T10:28:59.179Z"
+  },
+  {
+    "id": "82bce3c7-6a80-484d-a8c5-9f8e46c5d8b0",
+    "title": "Voice consultation report",
+    "status": "ready",
+    "startedAt": "2026-07-29T10:28:54.572Z",
+    "summary": "Report ready. No spoken transcript was captured before the consultation ended.",
+    "transcript": [],
+    "digitalTwin": {
+      "patient": {
+        "label": "Patient",
+        "sessionId": "82bce3c7-6a80-484d-a8c5-9f8e46c5d8b0",
+        "reportStatus": "ready",
+        "language": "Hinglish voice consultation"
+      },
+      "clinicalSnapshot": {
+        "chiefConcerns": [
+          "General health consultation"
+        ],
+        "reportedMetrics": [
+          "No numeric vitals or lab values captured"
+        ],
+        "lifestyleSignals": [
+          "Lifestyle history not yet captured"
+        ],
+        "riskSignals": [
+          "No urgent red-flag symptoms captured in transcript"
+        ]
+      },
+      "carePlan": [
+        "Review symptoms and medical history with a licensed clinician.",
+        "Carry current medicines, lab reports, and vitals for the next appointment."
+      ],
+      "conversationHistory": [],
+      "reportReady": true,
+      "lastUpdated": "2026-07-29T10:28:54.894Z"
+    },
+    "endedAt": "2026-07-29T10:28:54.893Z"
+  },
+  {
+    "id": "d24a1157-a616-486c-87ac-7b9ecdf166a5",
+    "title": "Voice consultation report",
+    "status": "ready",
+    "startedAt": "2026-07-29T10:28:51.340Z",
+    "summary": "Report ready. No spoken transcript was captured before the consultation ended.",
+    "transcript": [],
+    "digitalTwin": {
+      "patient": {
+        "label": "Patient",
+        "sessionId": "d24a1157-a616-486c-87ac-7b9ecdf166a5",
+        "reportStatus": "ready",
+        "language": "Hinglish voice consultation"
+      },
+      "clinicalSnapshot": {
+        "chiefConcerns": [
+          "General health consultation"
+        ],
+        "reportedMetrics": [
+          "No numeric vitals or lab values captured"
+        ],
+        "lifestyleSignals": [
+          "Lifestyle history not yet captured"
+        ],
+        "riskSignals": [
+          "No urgent red-flag symptoms captured in transcript"
+        ]
+      },
+      "carePlan": [
+        "Review symptoms and medical history with a licensed clinician.",
+        "Carry current medicines, lab reports, and vitals for the next appointment."
+      ],
+      "conversationHistory": [],
+      "reportReady": true,
+      "lastUpdated": "2026-07-29T10:28:52.343Z"
+    },
+    "endedAt": "2026-07-29T10:28:52.340Z"
+  },
+  {
+    "id": "3d992c80-fcd3-4841-9333-47f3af13a7bb",
+    "title": "Voice consultation report",
+    "status": "ready",
+    "startedAt": "2026-07-29T10:21:45.990Z",
+    "summary": "Report ready. No spoken transcript was captured before the consultation ended.",
+    "transcript": [],
+    "digitalTwin": {
+      "patient": {
+        "label": "Patient",
+        "sessionId": "3d992c80-fcd3-4841-9333-47f3af13a7bb",
+        "reportStatus": "ready",
+        "language": "Hinglish voice consultation"
+      },
+      "clinicalSnapshot": {
+        "chiefConcerns": [
+          "General health consultation"
+        ],
+        "reportedMetrics": [
+          "No numeric vitals or lab values captured"
+        ],
+        "lifestyleSignals": [
+          "Lifestyle history not yet captured"
+        ],
+        "riskSignals": [
+          "No urgent red-flag symptoms captured in transcript"
+        ]
+      },
+      "carePlan": [
+        "Review symptoms and medical history with a licensed clinician.",
+        "Carry current medicines, lab reports, and vitals for the next appointment."
+      ],
+      "conversationHistory": [],
+      "reportReady": true,
+      "lastUpdated": "2026-07-29T10:21:46.526Z"
+    },
+    "endedAt": "2026-07-29T10:21:46.526Z"
+  },
+  {
+    "id": "ce8e0a95-bce7-4270-ad2b-777e361304ab",
+    "title": "Voice consultation report",
+    "status": "ready",
+    "startedAt": "2026-07-29T10:21:43.561Z",
+    "summary": "Report ready. No spoken transcript was captured before the consultation ended.",
+    "transcript": [],
+    "digitalTwin": {
+      "patient": {
+        "label": "Patient",
+        "sessionId": "ce8e0a95-bce7-4270-ad2b-777e361304ab",
+        "reportStatus": "ready",
+        "language": "Hinglish voice consultation"
+      },
+      "clinicalSnapshot": {
+        "chiefConcerns": [
+          "General health consultation"
+        ],
+        "reportedMetrics": [
+          "No numeric vitals or lab values captured"
+        ],
+        "lifestyleSignals": [
+          "Lifestyle history not yet captured"
+        ],
+        "riskSignals": [
+          "No urgent red-flag symptoms captured in transcript"
+        ]
+      },
+      "carePlan": [
+        "Review symptoms and medical history with a licensed clinician.",
+        "Carry current medicines, lab reports, and vitals for the next appointment."
+      ],
+      "conversationHistory": [],
+      "reportReady": true,
+      "lastUpdated": "2026-07-29T10:21:43.912Z"
+    },
+    "endedAt": "2026-07-29T10:21:43.912Z"
+  },
+  {
+    "id": "2f58dfa7-a720-44a2-a707-eca8e0b484d5",
+    "title": "Voice consultation report",
+    "status": "ready",
+    "startedAt": "2026-07-29T10:21:41.142Z",
+    "summary": "Report ready. No spoken transcript was captured before the consultation ended.",
+    "transcript": [],
+    "digitalTwin": {
+      "patient": {
+        "label": "Patient",
+        "sessionId": "2f58dfa7-a720-44a2-a707-eca8e0b484d5",
+        "reportStatus": "ready",
+        "language": "Hinglish voice consultation"
+      },
+      "clinicalSnapshot": {
+        "chiefConcerns": [
+          "General health consultation"
+        ],
+        "reportedMetrics": [
+          "No numeric vitals or lab values captured"
+        ],
+        "lifestyleSignals": [
+          "Lifestyle history not yet captured"
+        ],
+        "riskSignals": [
+          "No urgent red-flag symptoms captured in transcript"
+        ]
+      },
+      "carePlan": [
+        "Review symptoms and medical history with a licensed clinician.",
+        "Carry current medicines, lab reports, and vitals for the next appointment."
+      ],
+      "conversationHistory": [],
+      "reportReady": true,
+      "lastUpdated": "2026-07-29T10:21:41.679Z"
+    },
+    "endedAt": "2026-07-29T10:21:41.678Z"
+  },
+  {
+    "id": "b8591fcf-8bf1-4469-b07a-e8e4b8776e33",
+    "title": "Voice consultation report",
+    "status": "ready",
+    "startedAt": "2026-07-29T10:21:37.147Z",
+    "summary": "Report ready. No spoken transcript was captured before the consultation ended.",
+    "transcript": [],
+    "digitalTwin": {
+      "patient": {
+        "label": "Patient",
+        "sessionId": "b8591fcf-8bf1-4469-b07a-e8e4b8776e33",
+        "reportStatus": "ready",
+        "language": "Hinglish voice consultation"
+      },
+      "clinicalSnapshot": {
+        "chiefConcerns": [
+          "General health consultation"
+        ],
+        "reportedMetrics": [
+          "No numeric vitals or lab values captured"
+        ],
+        "lifestyleSignals": [
+          "Lifestyle history not yet captured"
+        ],
+        "riskSignals": [
+          "No urgent red-flag symptoms captured in transcript"
+        ]
+      },
+      "carePlan": [
+        "Review symptoms and medical history with a licensed clinician.",
+        "Carry current medicines, lab reports, and vitals for the next appointment."
+      ],
+      "conversationHistory": [],
+      "reportReady": true,
+      "lastUpdated": "2026-07-29T10:21:37.919Z"
+    },
+    "endedAt": "2026-07-29T10:21:37.915Z"
+  },
+  {
+    "id": "9fd1d045-6195-44cf-ad0f-cc2c20e6c6d1",
+    "title": "Voice consultation report",
+    "status": "ready",
+    "startedAt": "2026-07-29T09:39:28.486Z",
+    "summary": "Report ready. This digital twin snapshot was saved from 1 conversation turn, covering general health consultation.",
+    "transcript": [
+      {
+        "id": "473163b6-4516-4e0e-a73c-bbab004e915c",
+        "role": "doctor",
+        "text": "Hello! Main Dr. AI hoon, aapka helpful aur empathetic medical assistant, jise Swetanshu Prasad ne banaya hai. Main aapko health aur wellness se judi advice deta hoon, Hinglish mein. Thoda concise aur friendly rahunga, par jab serious baat hogi, toh main aapko doctor se consult karne ko zaroor kahunga. Bataiye, main aapki kaise madad kar sakta hoon?",
+        "createdAt": "2026-07-29T09:39:51.397Z",
+        "final": true
+      }
+    ],
+    "digitalTwin": {
+      "patient": {
+        "label": "Patient",
+        "sessionId": "9fd1d045-6195-44cf-ad0f-cc2c20e6c6d1",
+        "reportStatus": "ready",
+        "language": "Hinglish voice consultation"
+      },
+      "clinicalSnapshot": {
+        "chiefConcerns": [
+          "General health consultation"
+        ],
+        "reportedMetrics": [
+          "No numeric vitals or lab values captured"
+        ],
+        "lifestyleSignals": [
+          "Lifestyle history not yet captured"
+        ],
+        "riskSignals": [
+          "No urgent red-flag symptoms captured in transcript"
+        ]
+      },
+      "carePlan": [
+        "Thoda concise aur friendly rahunga, par jab serious baat hogi, toh main aapko doctor se consult karne ko zaroor kahunga."
+      ],
+      "conversationHistory": [
+        {
+          "id": "473163b6-4516-4e0e-a73c-bbab004e915c",
+          "role": "doctor",
+          "text": "Hello! Main Dr. AI hoon, aapka helpful aur empathetic medical assistant, jise Swetanshu Prasad ne banaya hai. Main aapko health aur wellness se judi advice deta hoon, Hinglish mein. Thoda concise aur friendly rahunga, par jab serious baat hogi, toh main aapko doctor se consult karne ko zaroor kahunga. Bataiye, main aapki kaise madad kar sakta hoon?",
+          "createdAt": "2026-07-29T09:39:51.397Z",
+          "final": true
+        }
+      ],
+      "reportReady": true,
+      "lastUpdated": "2026-07-29T09:39:53.881Z"
+    },
+    "endedAt": "2026-07-29T09:39:53.877Z"
+  }
+]
