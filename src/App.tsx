@@ -19,6 +19,7 @@ import {
   Volume2,
 } from 'lucide-react';
 import { pcmToBase64, base64ToPcm } from './lib/audio';
+import hanafudaCard from '../assets/medical_hanafuda_card.png';
 
 type ChatRole = 'patient' | 'doctor';
 type ReportStatus = 'active' | 'ready';
@@ -78,18 +79,18 @@ const emptyDrafts: Record<ChatRole, string> = {
   doctor: '',
 };
 
-const roleStyles: Record<ChatRole, { label: string; icon: typeof UserRound; bubble: string; labelClass: string }> = {
+const roleConfig: Record<ChatRole, { label: string; icon: typeof UserRound; bubbleClass: string; labelColor: string }> = {
   patient: {
     label: 'Patient',
     icon: UserRound,
-    bubble: 'border-sky-300/20 bg-sky-400/[0.09] text-sky-50 shadow-lg shadow-sky-950/20',
-    labelClass: 'text-sky-300',
+    bubbleClass: 'bubble-patient',
+    labelColor: 'text-[var(--color-ink-muted)]',
   },
   doctor: {
     label: 'Dr. AI',
     icon: Stethoscope,
-    bubble: 'border-teal-300/20 bg-emerald-400/[0.09] text-emerald-50 shadow-lg shadow-emerald-950/20',
-    labelClass: 'text-teal-300',
+    bubbleClass: 'bubble-doctor',
+    labelColor: 'text-[var(--color-warm-red)]',
   },
 };
 
@@ -118,6 +119,8 @@ function upsertReport(reports: ConsultationReport[], report: ConsultationReport)
   return sortReports([report, ...reports.filter((item) => item.id !== report.id)]);
 }
 
+/* ─── Report List ───────────────────────────────────── */
+
 function ReportList({
   reports,
   selectedReportId,
@@ -129,9 +132,9 @@ function ReportList({
 }) {
   if (reports.length === 0) {
     return (
-      <div className="rounded-lg border border-dashed border-white/10 bg-black/20 px-4 py-6 text-center">
-        <FileText className="mx-auto h-7 w-7 text-slate-600" />
-        <p className="mt-3 text-sm text-slate-400">No reports yet.</p>
+      <div className="editorial-card px-4 py-6 text-center">
+        <FileText className="mx-auto h-7 w-7 text-[var(--color-stone-400)]" />
+        <p className="mt-3 text-sm text-[var(--color-stone-400)]">No reports yet.</p>
       </div>
     );
   }
@@ -144,28 +147,26 @@ function ReportList({
           <button
             key={report.id}
             onClick={() => onSelect(report.id)}
-            className={`report-row w-full rounded-lg border px-3 py-3 text-left transition duration-200 hover:-translate-y-0.5 ${
+            className={`report-row w-full rounded px-3 py-3 text-left transition duration-200 hover:-translate-y-0.5 ${
               isSelected
-                ? 'is-selected border-emerald-300/35 bg-emerald-300/[0.09] shadow-lg shadow-emerald-950/20'
-                : 'border-white/10 bg-white/[0.035] hover:border-sky-300/20 hover:bg-white/[0.065]'
+                ? 'is-selected editorial-card-selected editorial-card'
+                : 'editorial-card'
             }`}
           >
             <div className="flex items-start justify-between gap-3">
               <div className="min-w-0">
-                <p className="truncate text-sm font-medium text-white">{report.title}</p>
-                <p className="mt-1 text-xs text-slate-400">{formatDateTime(report.startedAt)}</p>
+                <p className="truncate text-sm font-medium text-[var(--color-ink)]">{report.title}</p>
+                <p className="mt-1 text-xs text-[var(--color-stone-400)]">{formatDateTime(report.startedAt)}</p>
               </div>
               <span
                 className={`shrink-0 rounded-full px-2 py-1 text-[10px] font-semibold ${
-                  report.status === 'ready'
-                    ? 'bg-emerald-300/15 text-emerald-200'
-                    : 'bg-amber-400/15 text-amber-300'
+                  report.status === 'ready' ? 'badge-ready' : 'badge-building'
                 }`}
               >
                 {report.status === 'ready' ? 'Ready' : 'Building'}
               </span>
             </div>
-            <div className="mt-3 flex items-center gap-3 text-xs text-slate-500">
+            <div className="mt-3 flex items-center gap-3 text-xs text-[var(--color-stone-400)]">
               <span className="inline-flex items-center gap-1">
                 <History className="h-3.5 w-3.5" />
                 {report.transcript.length} turns
@@ -182,14 +183,16 @@ function ReportList({
   );
 }
 
+/* ─── Twin List ─────────────────────────────────────── */
+
 function TwinList({ title, items }: { title: string; items: string[] }) {
   return (
-    <div className="border-t border-white/10 py-3 first:border-t-0 first:pt-0">
-      <p className="text-xs font-semibold text-slate-500">{title}</p>
+    <div className="twin-section">
+      <p className="section-label">{title}</p>
       <ul className="mt-2 space-y-1.5">
         {items.map((item) => (
-          <li key={item} className="flex gap-2 text-sm leading-relaxed text-slate-300">
-            <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-teal-300/70" />
+          <li key={item} className="flex gap-2 text-sm leading-relaxed text-[var(--color-ink-light)]">
+            <span className="twin-dot" />
             <span>{item}</span>
           </li>
         ))}
@@ -197,6 +200,8 @@ function TwinList({ title, items }: { title: string; items: string[] }) {
     </div>
   );
 }
+
+/* ─── Main App ──────────────────────────────────────── */
 
 export default function App() {
   const [isActive, setIsActive] = useState(false);
@@ -490,358 +495,413 @@ export default function App() {
   }, []);
 
   return (
-    <div className="clinical-shell min-h-screen text-slate-100 selection:bg-emerald-500/30 selection:text-white">
-      <header className="fixed inset-x-0 top-0 z-20 border-b border-white/10 bg-[#080a0d]/78 shadow-2xl shadow-black/20 backdrop-blur-xl">
-        <div className="mx-auto flex h-20 w-full max-w-7xl items-center justify-between gap-4 px-5">
-          <div className="flex min-w-0 items-center gap-3">
-            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-emerald-300/25 bg-emerald-300/10 shadow-lg shadow-emerald-950/30">
-              <HeartPulse className="h-5 w-5 text-emerald-300" />
+    <div className="editorial-shell">
+      {/* ═══ Navigation Bar ═══ */}
+      <header className="nav-bar fixed inset-x-0 top-0 z-20">
+        <div className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between gap-4 px-6">
+          {/* Left: Brand */}
+          <div className="flex items-center gap-3">
+            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded border border-[var(--color-stone-200)] bg-white/60">
+              <HeartPulse className="h-4.5 w-4.5 text-[var(--color-warm-red)]" />
             </div>
-            <div className="min-w-0">
-              <h1 className="truncate text-lg font-semibold text-white">
-                Curonosis Health
+            <div>
+              <h1 className="font-serif text-lg font-normal text-[var(--color-ink)]" style={{ fontFamily: 'var(--font-serif)' }}>
+                Curonosis
               </h1>
-              <p className="text-xs font-medium text-slate-500">
-                Telehealth portal
-              </p>
             </div>
           </div>
 
-          <div className="flex items-center gap-3">
-            <div className="hidden items-center gap-2 rounded-lg border border-white/10 bg-white/[0.055] px-3 py-2 text-xs font-semibold text-slate-300 sm:flex">
-              <span
-                className={`h-2 w-2 rounded-full ${
-                  isActive ? 'bg-emerald-400 shadow-[0_0_14px_rgba(52,211,153,0.75)]' : 'bg-slate-600'
-                }`}
-              />
-              {isActive ? 'Call active' : 'Available'}
+          {/* Center: Navigation */}
+          <nav className="hidden items-center gap-8 sm:flex">
+            <span className="nav-link active">Consult</span>
+            <span className="nav-link">History</span>
+            <span className="nav-link">Twin</span>
+          </nav>
+
+          {/* Right: Status + Dots */}
+          <div className="flex items-center gap-4">
+            <div className={`rounded px-3 py-1.5 text-xs font-semibold ${
+              reportStatus === 'ready'
+                ? 'badge-ready'
+                : reportStatus === 'building'
+                  ? 'badge-building'
+                  : isActive
+                    ? 'badge-active'
+                    : 'text-[var(--color-stone-400)]'
+            }`}>
+              {isActive ? 'Live' : latestReportLabel}
             </div>
-            <div
-              className={`rounded-lg border px-3 py-2 text-xs font-semibold ${
-                reportStatus === 'ready'
-                  ? 'border-emerald-400/25 bg-emerald-400/10 text-emerald-300'
-                  : reportStatus === 'building'
-                    ? 'border-amber-400/25 bg-amber-400/10 text-amber-300'
-                    : 'border-white/10 bg-white/[0.04] text-slate-400'
-              }`}
-            >
-              {latestReportLabel}
+            <div className="page-dots hidden sm:flex">
+              <span className="page-dot filled" />
+              <span className="page-dot" />
+              <span className="page-dot" />
+              <span className="page-dot" />
             </div>
           </div>
         </div>
       </header>
 
-      <main className="relative z-10 mx-auto grid w-full max-w-7xl grid-cols-1 gap-5 px-5 pb-8 pt-24 lg:grid-cols-[330px_minmax(0,1fr)_370px]">
-        <section className="glass-panel panel-enter rounded-lg p-5">
-          <div className="flex items-center justify-between gap-3">
+      {/* ═══ Main Content ═══ */}
+      <main className="relative z-10 mx-auto w-full max-w-7xl px-6 pb-12 pt-20">
+
+        {/* ─── Hero Section ─── */}
+        <section className="editorial-section panel-enter">
+          <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-[1fr_auto]">
+            {/* Left: Chapter + Hero text */}
             <div>
-              <p className="text-xs font-semibold text-slate-500">Consultation</p>
-              <h2 className="mt-1 text-xl font-semibold text-white">
-                {isConnecting ? 'Connecting' : isActive ? 'Live with Dr. AI' : 'Voice consult'}
-              </h2>
+              <div className="section-chapter">
+                Chapter 01 · Voice Consultation
+              </div>
+
+              <div className="mt-6 flex items-end gap-4">
+                <h2 className="editorial-year" style={{ fontSize: 'clamp(4rem, 12vw, 9rem)' }}>
+                  診察
+                </h2>
+                <div className="mb-2">
+                  <p className="text-sm leading-relaxed text-[var(--color-ink-muted)] max-w-md">
+                    {isConnecting
+                      ? 'Establishing connection with the AI physician…'
+                      : isActive
+                        ? 'Live consultation in progress. The AI physician is listening and responding in real-time.'
+                        : 'Begin a real-time voice consultation with the AI physician. Your conversation will be transcribed and a clinical report generated automatically.'}
+                  </p>
+                </div>
+              </div>
+
+              {/* Stats row */}
+              <div className="mt-8 grid grid-cols-3 gap-3 max-w-md">
+                <div className="stat-card">
+                  <p className="stat-value">{activeTurnCount}</p>
+                  <p className="stat-label">Turns</p>
+                </div>
+                <div className="stat-card">
+                  <p className="stat-value">{readyReportCount}</p>
+                  <p className="stat-label">Reports</p>
+                </div>
+                <div className="stat-card">
+                  <p className="stat-value">{selectedConcernCount}</p>
+                  <p className="stat-label">Signals</p>
+                </div>
+              </div>
             </div>
-            <div className="rounded-lg border border-white/10 bg-black/25 p-2">
-              {isActive ? (
-                <Volume2 className="h-5 w-5 text-emerald-300" />
-              ) : (
-                <Mic className="h-5 w-5 text-slate-400" />
-              )}
+
+            {/* Right: Hanafuda Card + Voice Disc */}
+            <div className="flex flex-col items-center gap-6">
+              {/* Decorative hanafuda card */}
+              <div className="hanafuda-card w-48 p-3">
+                <img
+                  src={hanafudaCard}
+                  alt="Medical consultation card"
+                  className="w-full h-auto"
+                />
+              </div>
+
+              {/* Voice button */}
+              <button
+                onClick={isActive ? () => stopSession(true) : startSession}
+                disabled={isConnecting}
+                className={`voice-disc group relative flex h-28 w-28 items-center justify-center rounded-full transition duration-500 ${
+                  isActive ? 'voice-disc-active' : ''
+                } ${isConnecting ? 'cursor-not-allowed opacity-60' : ''}`}
+                aria-label={isActive ? 'End consultation' : 'Start consultation'}
+              >
+                {isActive && (
+                  <>
+                    <span className="signal-ring one" />
+                    <span className="signal-ring two" />
+                    <span className="signal-ring three" />
+                  </>
+                )}
+                {isConnecting ? (
+                  <Loader2 className="relative z-10 h-7 w-7 animate-spin text-[var(--color-ink-muted)]" />
+                ) : isActive ? (
+                  <Volume2 className="relative z-10 h-7 w-7 text-[var(--color-warm-red)]" />
+                ) : (
+                  <Mic className="relative z-10 h-7 w-7 text-[var(--color-ink-muted)] transition group-hover:text-[var(--color-warm-red)]" />
+                )}
+              </button>
+
+              {/* Action button */}
+              <button
+                onClick={isActive ? () => stopSession(true) : startSession}
+                disabled={isConnecting}
+                className={`flex w-full items-center justify-center gap-2 px-5 py-3 text-sm font-semibold transition duration-200 ${
+                  isActive ? 'btn-danger' : 'btn-primary'
+                } ${isConnecting ? 'cursor-not-allowed opacity-60' : ''}`}
+              >
+                {isActive ? (
+                  <>
+                    <MicOff className="h-4 w-4" />
+                    End consultation
+                  </>
+                ) : (
+                  <>
+                    <Mic className="h-4 w-4" />
+                    Start consultation
+                  </>
+                )}
+              </button>
+
+              {/* ECG trace */}
+              <svg
+                className="h-7 w-full max-w-[200px] text-[var(--color-warm-red)]"
+                viewBox="0 0 300 46"
+                fill="none"
+                aria-hidden="true"
+                style={{ opacity: 0.5 }}
+              >
+                <path
+                  className={isActive ? 'ecg-line' : ''}
+                  d="M2 24H54L64 24L72 9L84 38L96 24H126L136 24L146 16L158 30L172 24H298"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
             </div>
           </div>
 
-          <div className="flex min-h-[292px] flex-col items-center justify-center py-8">
-            <button
-              onClick={isActive ? () => stopSession(true) : startSession}
-              disabled={isConnecting}
-              className={`voice-disc group relative flex h-44 w-44 items-center justify-center rounded-full border transition duration-500 ${
-                isActive
-                  ? 'voice-disc-active border-emerald-300/50'
-                  : 'border-white/10 hover:border-emerald-300/30'
-              } ${isConnecting ? 'cursor-not-allowed opacity-60' : ''}`}
-              aria-label={isActive ? 'End consultation' : 'Start consultation'}
-            >
-              {isActive && (
-                <>
-                  <span className="signal-ring one" />
-                  <span className="signal-ring two" />
-                  <span className="signal-ring three" />
-                </>
-              )}
-              <span
-                className={`absolute inset-5 rounded-full border transition ${
-                  isActive ? 'border-emerald-300/25' : 'border-white/10'
-                }`}
-              />
-              {isConnecting ? (
-                <Loader2 className="relative z-10 h-10 w-10 animate-spin text-slate-200" />
-              ) : isActive ? (
-                <Volume2 className="relative z-10 h-10 w-10 text-emerald-200" />
-              ) : (
-                <Mic className="relative z-10 h-10 w-10 text-slate-300 transition group-hover:text-emerald-200" />
-              )}
-            </button>
-
-            <svg
-              className="mt-7 h-9 w-full max-w-[250px] text-teal-300/80"
-              viewBox="0 0 300 46"
-              fill="none"
-              aria-hidden="true"
-            >
-              <path
-                className={isActive ? 'ecg-line' : ''}
-                d="M2 24H54L64 24L72 9L84 38L96 24H126L136 24L146 16L158 30L172 24H298"
-                stroke="currentColor"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </div>
-
-          <div className="space-y-3">
-            <button
-              onClick={isActive ? () => stopSession(true) : startSession}
-              disabled={isConnecting}
-              className={`flex w-full items-center justify-center gap-2 rounded-lg px-4 py-3 text-sm font-semibold shadow-lg transition duration-200 hover:-translate-y-0.5 ${
-                isActive
-                  ? 'border border-rose-300/25 bg-rose-400/10 text-rose-100 shadow-rose-950/20 hover:bg-rose-400/15'
-                  : 'bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 shadow-emerald-950/30 hover:from-emerald-400 hover:to-cyan-300'
-              } ${isConnecting ? 'cursor-not-allowed opacity-60' : ''}`}
-            >
-              {isActive ? (
-                <>
-                  <MicOff className="h-4 w-4" />
-                  End call and save report
-                </>
-              ) : (
-                <>
-                  <Mic className="h-4 w-4" />
-                  Start consultation
-                </>
-              )}
-            </button>
-
-            <div className="grid grid-cols-3 gap-2">
-              <div className="rounded-lg border border-white/10 bg-black/25 px-3 py-3">
-                <MessageSquareText className="h-4 w-4 text-sky-300" />
-                <p className="mt-2 text-lg font-semibold text-white">{activeTurnCount}</p>
-                <p className="text-[11px] text-slate-500">Turns</p>
-              </div>
-              <div className="rounded-lg border border-white/10 bg-black/25 px-3 py-3">
-                <CheckCircle2 className="h-4 w-4 text-emerald-300" />
-                <p className="mt-2 text-lg font-semibold text-white">{readyReportCount}</p>
-                <p className="text-[11px] text-slate-500">Ready</p>
-              </div>
-              <div className="rounded-lg border border-white/10 bg-black/25 px-3 py-3">
-                <Activity className="h-4 w-4 text-amber-300" />
-                <p className="mt-2 text-lg font-semibold text-white">{selectedConcernCount}</p>
-                <p className="text-[11px] text-slate-500">Signals</p>
-              </div>
-            </div>
-
-            <div className="rounded-lg border border-white/10 bg-black/25 px-3 py-3">
-              <div className="flex items-start gap-3">
-                <ShieldCheck className="mt-0.5 h-4 w-4 text-emerald-300" />
-                <p className="text-sm leading-relaxed text-slate-400">
-                  The patient report is saved after the call ends and can be downloaded from history.
-                </p>
-              </div>
+          {/* Notice + Error */}
+          <div className="mt-6 max-w-2xl">
+            <div className="flex items-start gap-3 rounded border border-[var(--color-stone-200)] bg-white/40 px-4 py-3">
+              <ShieldCheck className="mt-0.5 h-4 w-4 text-[var(--color-stone-400)]" />
+              <p className="text-sm leading-relaxed text-[var(--color-ink-muted)]">
+                The patient report is saved after the call ends and can be downloaded from history.
+              </p>
             </div>
 
             {appError && (
-              <div className="rounded-lg border border-rose-400/20 bg-rose-400/10 px-3 py-3">
-                <div className="flex items-start gap-3">
-                  <AlertCircle className="mt-0.5 h-4 w-4 text-rose-300" />
-                  <p className="text-sm leading-relaxed text-rose-100">{appError}</p>
-                </div>
+              <div className="mt-3 flex items-start gap-3 rounded border border-[var(--color-warm-red)]/20 bg-[var(--color-warm-red)]/5 px-4 py-3">
+                <AlertCircle className="mt-0.5 h-4 w-4 text-[var(--color-warm-red)]" />
+                <p className="text-sm leading-relaxed text-[var(--color-warm-red-dark)]">{appError}</p>
               </div>
             )}
           </div>
         </section>
 
-        <section className="glass-panel panel-enter delay-1 flex min-h-[620px] flex-col rounded-lg">
-          <div className="flex items-center justify-between gap-3 border-b border-white/10 px-5 py-4">
+        {/* ─── Transcript + Sidebar ─── */}
+        <section className="editorial-section panel-enter delay-1">
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_340px]">
+
+            {/* Transcript */}
             <div>
-              <p className="text-xs font-semibold text-slate-500">
-                Chat history
-              </p>
-              <h2 className="mt-1 text-xl font-semibold text-white">Consultation transcript</h2>
-            </div>
-            <div className="flex items-center gap-2 rounded-lg border border-white/10 bg-black/25 px-3 py-2 text-xs text-slate-400">
-              <Clock3 className="h-4 w-4" />
-              {messages.length + liveDrafts.length} turns
-            </div>
-          </div>
-
-          <div className="scrollbar-thin flex-1 space-y-4 overflow-y-auto px-5 py-5">
-            {messages.length === 0 && liveDrafts.length === 0 ? (
-              <div className="flex h-full min-h-[360px] items-center justify-center">
-                <div className="text-center">
-                  <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-lg border border-white/10 bg-white/[0.045]">
-                    <FileText className="h-7 w-7 text-slate-500" />
-                  </div>
-                  <p className="mt-4 text-sm font-medium text-slate-300">No transcript yet</p>
-                  <p className="mt-1 text-sm text-slate-500">Start a consultation to capture the conversation.</p>
+              <div className="flex items-center justify-between gap-3 border-b border-[var(--color-stone-200)] pb-4">
+                <div>
+                  <div className="section-chapter">Chapter 02 · Transcript</div>
+                  <h2 className="mt-2 font-serif text-3xl text-[var(--color-ink)]" style={{ fontFamily: 'var(--font-serif)' }}>
+                    会話記録
+                  </h2>
+                </div>
+                <div className="flex items-center gap-2 rounded border border-[var(--color-stone-200)] px-3 py-1.5 text-xs text-[var(--color-stone-400)]">
+                  <Clock3 className="h-3.5 w-3.5" />
+                  {messages.length + liveDrafts.length} turns
                 </div>
               </div>
-            ) : (
-              <>
-                {messages.map((entry) => {
-                  const meta = roleStyles[entry.role];
-                  const Icon = meta.icon;
-                  return (
-                    <article
-                      key={entry.id}
-                      className={`message-enter max-w-[88%] rounded-lg border px-4 py-3 ${
-                        entry.role === 'patient' ? 'ml-auto' : 'mr-auto'
-                      } ${meta.bubble}`}
-                    >
-                      <div className="mb-2 flex items-center justify-between gap-3">
-                        <div className={`flex items-center gap-2 text-xs font-semibold ${meta.labelClass}`}>
-                          <Icon className="h-4 w-4" />
-                          {meta.label}
-                        </div>
-                        <time className="text-xs text-slate-500">{formatTime(entry.createdAt)}</time>
-                      </div>
-                      <p className="break-words text-sm leading-relaxed">{entry.text}</p>
-                    </article>
-                  );
-                })}
 
-                {liveDrafts.map((draft) => {
-                  const meta = roleStyles[draft.role];
-                  const Icon = meta.icon;
-                  return (
-                    <article
-                      key={`${draft.role}-draft`}
-                      className={`message-enter max-w-[88%] rounded-lg border border-dashed px-4 py-3 opacity-80 ${
-                        draft.role === 'patient' ? 'ml-auto' : 'mr-auto'
-                      } ${meta.bubble}`}
-                    >
-                      <div className={`mb-2 flex items-center gap-2 text-xs font-semibold ${meta.labelClass}`}>
-                        <Icon className="h-4 w-4" />
-                        {meta.label}
+              <div className="scrollbar-thin mt-5 max-h-[520px] space-y-4 overflow-y-auto pr-2">
+                {messages.length === 0 && liveDrafts.length === 0 ? (
+                  <div className="flex min-h-[300px] items-center justify-center">
+                    <div className="text-center">
+                      <div className="mx-auto flex h-14 w-14 items-center justify-center rounded border border-[var(--color-stone-200)] bg-white/50">
+                        <FileText className="h-7 w-7 text-[var(--color-stone-400)]" />
                       </div>
-                      <p className="break-words text-sm leading-relaxed">{draft.text}</p>
-                    </article>
-                  );
-                })}
-                <div ref={messagesEndRef} />
-              </>
-            )}
+                      <p className="mt-4 text-sm font-medium text-[var(--color-ink)]">No transcript yet</p>
+                      <p className="mt-1 text-sm text-[var(--color-stone-400)]">Start a consultation to capture the conversation.</p>
+                    </div>
+                  </div>
+                ) : (
+                  <>
+                    {messages.map((entry) => {
+                      const meta = roleConfig[entry.role];
+                      const Icon = meta.icon;
+                      return (
+                        <article
+                          key={entry.id}
+                          className={`message-enter max-w-[88%] rounded px-4 py-3 ${
+                            entry.role === 'patient' ? 'ml-auto' : 'mr-auto'
+                          } ${meta.bubbleClass}`}
+                        >
+                          <div className="mb-2 flex items-center justify-between gap-3">
+                            <div className={`flex items-center gap-2 text-xs font-semibold ${meta.labelColor}`}>
+                              <Icon className="h-4 w-4" />
+                              {meta.label}
+                            </div>
+                            <time className="text-xs text-[var(--color-stone-400)]">{formatTime(entry.createdAt)}</time>
+                          </div>
+                          <p className="break-words text-sm leading-relaxed text-[var(--color-ink)]">{entry.text}</p>
+                        </article>
+                      );
+                    })}
+
+                    {liveDrafts.map((draft) => {
+                      const meta = roleConfig[draft.role];
+                      const Icon = meta.icon;
+                      return (
+                        <article
+                          key={`${draft.role}-draft`}
+                          className={`message-enter max-w-[88%] rounded border-dashed px-4 py-3 opacity-70 ${
+                            draft.role === 'patient' ? 'ml-auto' : 'mr-auto'
+                          } ${meta.bubbleClass}`}
+                        >
+                          <div className={`mb-2 flex items-center gap-2 text-xs font-semibold ${meta.labelColor}`}>
+                            <Icon className="h-4 w-4" />
+                            {meta.label}
+                          </div>
+                          <p className="break-words text-sm leading-relaxed text-[var(--color-ink)]">{draft.text}</p>
+                        </article>
+                      );
+                    })}
+                    <div ref={messagesEndRef} />
+                  </>
+                )}
+              </div>
+            </div>
+
+            {/* Sidebar: Reports */}
+            <aside className="space-y-6">
+              <div className="editorial-card rounded p-5">
+                <div className="flex items-center justify-between gap-3">
+                  <div>
+                    <p className="section-label">Reports</p>
+                    <h3 className="mt-1 font-serif text-xl text-[var(--color-ink)]" style={{ fontFamily: 'var(--font-serif)' }}>
+                      Patient History
+                    </h3>
+                  </div>
+                  <div className="rounded border border-[var(--color-stone-200)] p-2 bg-white/50">
+                    <History className="h-4 w-4 text-[var(--color-stone-400)]" />
+                  </div>
+                </div>
+
+                <div className="mt-4 grid grid-cols-2 gap-2">
+                  <div className="stat-card">
+                    <p className="stat-value">{reports.length}</p>
+                    <p className="stat-label">Total</p>
+                  </div>
+                  <div className="stat-card">
+                    <p className="stat-value" style={{ color: 'var(--color-warm-red)' }}>{readyReportCount}</p>
+                    <p className="stat-label">Ready</p>
+                  </div>
+                </div>
+
+                <div className="scrollbar-thin mt-4 max-h-[260px] overflow-y-auto pr-1">
+                  <ReportList
+                    reports={reports}
+                    selectedReportId={selectedReport?.id || null}
+                    onSelect={setSelectedReportId}
+                  />
+                </div>
+              </div>
+            </aside>
           </div>
         </section>
 
-        <aside className="panel-enter delay-2 space-y-5">
-          <section className="glass-panel rounded-lg p-5">
-            <div className="flex items-center justify-between gap-3">
-              <div>
-                <p className="text-xs font-semibold text-slate-500">Reports</p>
-                <h2 className="mt-1 text-xl font-semibold text-white">Patient history</h2>
-              </div>
-              <div className="rounded-lg border border-white/10 bg-black/25 p-2">
-                <History className="h-5 w-5 text-slate-400" />
-              </div>
+        {/* ─── Digital Twin Section ─── */}
+        <section className="editorial-section panel-enter delay-2">
+          <div className="section-chapter">Chapter 03 · Digital Twin</div>
+          <div className="mt-4 grid grid-cols-1 gap-8 lg:grid-cols-[auto_minmax(0,1fr)]">
+            {/* Left: Title area */}
+            <div>
+              <h2 className="editorial-jp-large">
+                診断
+              </h2>
             </div>
 
-            <div className="mt-4 grid grid-cols-2 gap-2">
-              <div className="rounded-lg border border-white/10 bg-black/25 px-3 py-2">
-                <p className="text-lg font-semibold text-white">{reports.length}</p>
-                <p className="text-[11px] text-slate-500">Total reports</p>
+            {/* Right: Twin content */}
+            <div>
+              <div className="flex items-start justify-between gap-4 border-b border-[var(--color-stone-200)] pb-4">
+                <div className="min-w-0">
+                  <p className="section-label">Clinical Record</p>
+                  <h3 className="mt-1 font-serif text-2xl text-[var(--color-ink)] truncate" style={{ fontFamily: 'var(--font-serif)' }}>
+                    {selectedReport ? selectedReport.title : 'No saved record'}
+                  </h3>
+                </div>
+                <div className="rounded border border-[var(--color-warm-red)]/20 bg-[var(--color-warm-red)]/5 p-2">
+                  <Brain className="h-5 w-5 shrink-0 text-[var(--color-warm-red)]" />
+                </div>
               </div>
-              <div className="rounded-lg border border-white/10 bg-black/25 px-3 py-2">
-                <p className="text-lg font-semibold text-emerald-200">{readyReportCount}</p>
-                <p className="text-[11px] text-slate-500">Downloadable</p>
-              </div>
-            </div>
 
-            <div className="scrollbar-thin mt-4 max-h-[280px] overflow-y-auto pr-1">
-              <ReportList
-                reports={reports}
-                selectedReportId={selectedReport?.id || null}
-                onSelect={setSelectedReportId}
-              />
-            </div>
-          </section>
-
-          <section className="glass-panel rounded-lg p-5">
-            <div className="flex items-start justify-between gap-3">
-              <div className="min-w-0">
-                <p className="text-xs font-semibold text-slate-500">
-                  Digital twin
-                </p>
-                <h2 className="mt-1 truncate text-xl font-semibold text-white">
-                  {selectedReport ? selectedReport.title : 'No saved record'}
-                </h2>
-              </div>
-              <div className="rounded-lg border border-emerald-300/20 bg-emerald-300/10 p-2">
-                <Brain className="h-5 w-5 shrink-0 text-emerald-200" />
-              </div>
-            </div>
-
-            {selectedReport ? (
-              <div className="mt-4">
-                <div className="mb-4 rounded-lg border border-white/10 bg-black/25 px-4 py-3">
-                  <div className="flex items-center justify-between gap-3">
-                    <span className="text-sm font-medium text-slate-300">
-                      {selectedReport.status === 'ready' ? 'Report is ready' : 'Report building'}
-                    </span>
-                    <span
-                      className={`rounded-full px-2 py-1 text-[10px] font-semibold ${
-                        selectedReport.status === 'ready'
-                          ? 'bg-emerald-400/15 text-emerald-300'
-                          : 'bg-amber-400/15 text-amber-300'
-                      }`}
-                    >
-                      {selectedReport.digitalTwin.reportReady ? 'Saved' : 'Draft'}
-                    </span>
+              {selectedReport ? (
+                <div className="mt-5">
+                  {/* Report summary */}
+                  <div className="editorial-card rounded p-4 mb-5">
+                    <div className="flex items-center justify-between gap-3">
+                      <span className="text-sm font-medium text-[var(--color-ink)]">
+                        {selectedReport.status === 'ready' ? 'Report is ready' : 'Report building'}
+                      </span>
+                      <span className={`rounded-full px-2 py-1 text-[10px] font-semibold ${
+                        selectedReport.status === 'ready' ? 'badge-ready' : 'badge-building'
+                      }`}>
+                        {selectedReport.digitalTwin.reportReady ? 'Saved' : 'Draft'}
+                      </span>
+                    </div>
+                    <p className="mt-2 text-xs leading-relaxed text-[var(--color-ink-muted)]">
+                      {selectedReport.summary}
+                    </p>
                   </div>
-                  <p className="mt-2 text-xs leading-relaxed text-slate-500">
-                    {selectedReport.summary}
-                  </p>
-                </div>
 
-                <div className="space-y-0">
-                  <TwinList
-                    title="Chief concerns"
-                    items={selectedReport.digitalTwin.clinicalSnapshot.chiefConcerns}
-                  />
-                  <TwinList
-                    title="Reported metrics"
-                    items={selectedReport.digitalTwin.clinicalSnapshot.reportedMetrics}
-                  />
-                  <TwinList
-                    title="Lifestyle signals"
-                    items={selectedReport.digitalTwin.clinicalSnapshot.lifestyleSignals}
-                  />
-                  <TwinList
-                    title="Risk signals"
-                    items={selectedReport.digitalTwin.clinicalSnapshot.riskSignals}
-                  />
-                  <TwinList title="Care plan" items={selectedReport.digitalTwin.carePlan} />
-                </div>
+                  {/* Twin lists */}
+                  <div className="space-y-0">
+                    <TwinList
+                      title="Chief concerns"
+                      items={selectedReport.digitalTwin.clinicalSnapshot.chiefConcerns}
+                    />
+                    <TwinList
+                      title="Reported metrics"
+                      items={selectedReport.digitalTwin.clinicalSnapshot.reportedMetrics}
+                    />
+                    <TwinList
+                      title="Lifestyle signals"
+                      items={selectedReport.digitalTwin.clinicalSnapshot.lifestyleSignals}
+                    />
+                    <TwinList
+                      title="Risk signals"
+                      items={selectedReport.digitalTwin.clinicalSnapshot.riskSignals}
+                    />
+                    <TwinList title="Care plan" items={selectedReport.digitalTwin.carePlan} />
+                  </div>
 
-                <a
-                  href={`/api/reports/${selectedReport.id}/pdf`}
-                  download
-                  className={`mt-5 flex w-full items-center justify-center gap-2 rounded-lg px-4 py-3 text-sm font-semibold shadow-lg transition duration-200 ${
-                    selectedReport.status === 'ready'
-                      ? 'bg-gradient-to-r from-white to-emerald-100 text-slate-950 shadow-emerald-950/20 hover:-translate-y-0.5'
-                      : 'pointer-events-none border border-white/10 bg-white/[0.04] text-slate-500'
-                  }`}
-                >
-                  <Download className="h-4 w-4" />
-                  Download PDF
-                </a>
-              </div>
-            ) : (
-              <div className="mt-4 rounded-lg border border-dashed border-white/10 bg-black/20 px-4 py-8 text-center">
-                <Brain className="mx-auto h-8 w-8 text-slate-600" />
-                <p className="mt-3 text-sm text-slate-500">No digital twin saved yet.</p>
-              </div>
-            )}
-          </section>
-        </aside>
+                  {/* Download button */}
+                  <a
+                    href={`/api/reports/${selectedReport.id}/pdf`}
+                    download
+                    className={`mt-6 flex w-full items-center justify-center gap-2 px-5 py-3 text-sm font-semibold transition duration-200 ${
+                      selectedReport.status === 'ready'
+                        ? 'btn-primary hover:-translate-y-0.5'
+                        : 'btn-outline pointer-events-none opacity-50'
+                    }`}
+                  >
+                    <Download className="h-4 w-4" />
+                    Download PDF
+                  </a>
+                </div>
+              ) : (
+                <div className="mt-6 editorial-card rounded px-5 py-10 text-center">
+                  <Brain className="mx-auto h-8 w-8 text-[var(--color-stone-400)]" />
+                  <p className="mt-3 text-sm text-[var(--color-stone-400)]">No digital twin saved yet.</p>
+                </div>
+              )}
+            </div>
+          </div>
+        </section>
+
+        {/* ─── Footer Timeline ─── */}
+        <footer className="mt-8 flex items-center justify-between gap-4 text-xs text-[var(--color-stone-400)] border-t border-[var(--color-stone-200)] pt-4 pb-2">
+          <div className="flex items-center gap-6 overflow-x-auto">
+            {reports.slice(0, 5).map((r, i) => (
+              <button
+                key={r.id}
+                onClick={() => setSelectedReportId(r.id)}
+                className={`whitespace-nowrap transition hover:text-[var(--color-ink)] ${
+                  r.id === selectedReport?.id ? 'text-[var(--color-ink)] font-semibold' : ''
+                }`}
+              >
+                {formatDateTime(r.startedAt)}
+              </button>
+            ))}
+          </div>
+          <span className="shrink-0 text-[var(--color-stone-400)]">Curonosis Health</span>
+        </footer>
       </main>
     </div>
   );
