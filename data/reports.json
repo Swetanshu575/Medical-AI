@@ -1,5 +1,58 @@
 [
   {
+    "id": "06b1eca6-3dbc-4bcf-8df3-077a7d818547",
+    "title": "Voice consultation report",
+    "status": "ready",
+    "startedAt": "2026-07-30T09:15:20.106Z",
+    "summary": "Report ready. This digital twin snapshot was saved from 1 conversation turn, covering general health consultation.",
+    "transcript": [
+      {
+        "id": "89e5673e-cd32-4595-ae1d-1f4b293d8ea2",
+        "role": "doctor",
+        "text": "Hello! I am Dr. AI, your empathetic medical assistant, created by Swetanshu Prasad. Main aapki health aur wellness queryies mein madad karne aaya hoon, woh bhi ek natural aur friendly andaaz mein, Hindi aur English mix karke. Kuch bhi poochhna hai, toh bejhijhak poochhiye, but hamesha yaad rakhiye clarify karne ke liye ki serious issues ke liye aapko doctor se consult karna chahiye. Main generic advice nahi deta, balki pehle problem ko samajhne ki koshish karta hoon standard protocols ke through. Bataiye, main aapki kaise madad kar sakta hoon?",
+        "createdAt": "2026-07-30T09:15:37.639Z",
+        "final": true
+      }
+    ],
+    "digitalTwin": {
+      "patient": {
+        "label": "Patient",
+        "sessionId": "06b1eca6-3dbc-4bcf-8df3-077a7d818547",
+        "reportStatus": "ready",
+        "language": "Hinglish voice consultation"
+      },
+      "clinicalSnapshot": {
+        "chiefConcerns": [
+          "General health consultation"
+        ],
+        "reportedMetrics": [
+          "No numeric vitals or lab values captured"
+        ],
+        "lifestyleSignals": [
+          "Lifestyle history not yet captured"
+        ],
+        "riskSignals": [
+          "No urgent red-flag symptoms captured in transcript"
+        ]
+      },
+      "carePlan": [
+        "Kuch bhi poochhna hai, toh bejhijhak poochhiye, but hamesha yaad rakhiye clarify karne ke liye ki serious issues ke liye aapko doctor se consult karna chahiye."
+      ],
+      "conversationHistory": [
+        {
+          "id": "89e5673e-cd32-4595-ae1d-1f4b293d8ea2",
+          "role": "doctor",
+          "text": "Hello! I am Dr. AI, your empathetic medical assistant, created by Swetanshu Prasad. Main aapki health aur wellness queryies mein madad karne aaya hoon, woh bhi ek natural aur friendly andaaz mein, Hindi aur English mix karke. Kuch bhi poochhna hai, toh bejhijhak poochhiye, but hamesha yaad rakhiye clarify karne ke liye ki serious issues ke liye aapko doctor se consult karna chahiye. Main generic advice nahi deta, balki pehle problem ko samajhne ki koshish karta hoon standard protocols ke through. Bataiye, main aapki kaise madad kar sakta hoon?",
+          "createdAt": "2026-07-30T09:15:37.639Z",
+          "final": true
+        }
+      ],
+      "reportReady": true,
+      "lastUpdated": "2026-07-30T09:15:37.642Z"
+    },
+    "endedAt": "2026-07-30T09:15:37.639Z"
+  },
+  {
     "id": "e859d6b4-ecb5-4cd5-a1a6-c038b8aa169b",
     "title": "की करवा?",
     "status": "ready",
