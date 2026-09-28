@@ -1,3 +1,4 @@
+```tsx
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
@@ -5,7 +6,7 @@
 
 import React, { useState, useMemo } from 'react';
 import { PresetPhrase } from '../types';
-import { Sparkles, MessageSquare, Code, Play, Check, Flame } from 'lucide-react';
+import { Sparkles, MessageSquare, Code, Play, Flame } from 'lucide-react';
 
 export default function PromptEngineeringPanel() {
   const [selectedPreset, setSelectedPreset] = useState<string>('diabetes_initial');
@@ -44,6 +45,7 @@ export default function PromptEngineeringPanel() {
   ], []);
 
   const systemPromptTemplate = `You are Dr. AI, an expert and empathetic medical assistant created by Ankit Arya , ujjwal and Swetanshu . You must respond fluently in a natural mix of Hindi and English (Hinglish). You provide helpful, compassionate, and knowledgeable health and wellness advice. Keep your answers concise, conversational, and professional, always reminding users to consult a real physician for serious concerns.
+  
 
 CRITICAL PROTOCOLS FOR DIABETES AND THYROID:
 1. IN-DEPTH INVESTIGATION: When a user mentions Diabetes or Thyroid, DO NOT just give immediate generic advice. Instead, ask in-depth diagnostic questions like a real doctor to understand the root cause and lifestyle factors.
@@ -59,6 +61,7 @@ CRITICAL PROTOCOLS FOR DIABETES AND THYROID:
 
     setTimeout(() => {
       let activePreset = presets.find(p => p.id === selectedPreset);
+
       if (customUserPrompt.trim() !== '') {
         // Mock custom generator
         activePreset = {
@@ -70,16 +73,20 @@ CRITICAL PROTOCOLS FOR DIABETES AND THYROID:
         };
       }
 
-      if (!activePreset) return;
+      if (!activePreset) {
+        setIsSynthesizing(false);
+        return;
+      }
 
       // Extract raw/stripped text
       const regex = /<(\w+)>([\s\S]*?)<\/(\w+)>/g;
-      let trimmedText = activePreset.response.replace(regex, '$2');
-      
+      const trimmedText = activePreset.response.replace(regex, '$2');
+
       // Simulate viseme keyframes mapping
       // Standard viseme models use ~12 primary lip positions: A, O, U, E, MBP, L, Th, FV, etc.
       const phonemes = ["A", "O", "MBP", "E", "Th", "L", "Rest"];
       const shapes = ["Wide Open", "Round Purse", "Closed Flat", "Wide Corner", "Tongue Out", "Tongue Up", "Relaxed Line"];
+
       const mapping = trimmedText.split(' ').slice(0, 9).map((word, i) => ({
         frame: i * 8,
         phoneme: phonemes[i % phonemes.length],
@@ -92,6 +99,7 @@ CRITICAL PROTOCOLS FOR DIABETES AND THYROID:
         strippedText: trimmedText,
         visemeMapping: mapping
       });
+
       setIsSynthesizing(false);
     }, 1100);
   };
@@ -100,6 +108,7 @@ CRITICAL PROTOCOLS FOR DIABETES AND THYROID:
 
   return (
     <div className="flex flex-col space-y-6 h-full p-1" id="prompt-root">
+
       {/* SECTION 1: System Prompt Blueprint */}
       <div className="bg-white/5 border border-white/10 rounded-xl p-5 shadow-2xl space-y-3">
         <div className="flex justify-between items-center">
@@ -107,11 +116,12 @@ CRITICAL PROTOCOLS FOR DIABETES AND THYROID:
             <Code className="w-4 h-4 text-emerald-400" />
             <span>Server System Prompt Blueprint</span>
           </h3>
+
           <span className="text-[10px] text-slate-500 font-mono bg-black/40 px-2 py-1 rounded border border-white/10">
             TEMPERATURE: 0.4
           </span>
         </div>
-        
+
         <p className="text-xs text-slate-400">
           This system prompt forces the LLM to structure replies in bilingual, natural Hinglish syntax while strictly embedding emotional overlays for the interactive web rendering system.
         </p>
@@ -120,6 +130,7 @@ CRITICAL PROTOCOLS FOR DIABETES AND THYROID:
           <pre className="text-[10px] sm:text-xs font-mono text-slate-300 bg-[#0a0a0c] border border-white/10 rounded-lg p-4 snap-y max-h-56 overflow-y-auto whitespace-pre-wrap leading-relaxed select-all">
             {systemPromptTemplate}
           </pre>
+
           <div className="absolute bottom-2 right-2 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[9px] font-mono px-1.5 py-0.5 rounded cursor-help">
             Deployable Template
           </div>
@@ -128,9 +139,10 @@ CRITICAL PROTOCOLS FOR DIABETES AND THYROID:
 
       {/* SECTION 2: Interactive Sandbox */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
-        
+
         {/* Left Side: Playground controls */}
         <div className="lg:col-span-5 bg-white/5 border border-white/10 rounded-xl p-5 shadow-2xl space-y-4 flex flex-col justify-between">
+
           <div className="space-y-4">
             <h3 className="text-sm font-medium tracking-wide text-slate-300 flex items-center space-x-1.5">
               <Sparkles className="w-4 h-4 text-emerald-400 animate-pulse" />
@@ -139,7 +151,10 @@ CRITICAL PROTOCOLS FOR DIABETES AND THYROID:
 
             {/* Presets */}
             <div className="space-y-2">
-              <label className="text-xs font-semibold text-slate-400 block">Select Hinglish Customer Presets</label>
+              <label className="text-xs font-semibold text-slate-400 block">
+                Select Hinglish Customer Presets
+              </label>
+
               <div className="flex flex-col space-y-2">
                 {presets.map((p) => (
                   <button
@@ -155,11 +170,19 @@ CRITICAL PROTOCOLS FOR DIABETES AND THYROID:
                     }`}
                   >
                     <MessageSquare className="w-4 h-4 text-slate-500 mt-0.5 shrink-0" />
+
                     <div>
                       <p className="font-bold text-slate-300">
-                        {p.id === 'diabetes_initial' ? "Recently Detected Diabetes" : p.id === 'thyroid_fatigue' ? "Thyroid Fatigue Issue" : "Fluctuating Sugar Levels"}
+                        {p.id === 'diabetes_initial'
+                          ? "Recently Detected Diabetes"
+                          : p.id === 'thyroid_fatigue'
+                            ? "Thyroid Fatigue Issue"
+                            : "Fluctuating Sugar Levels"}
                       </p>
-                      <p className="opacity-70 text-[10px] mt-0.5 truncate max-w-sm">{p.trigger}</p>
+
+                      <p className="opacity-70 text-[10px] mt-0.5 truncate max-w-sm">
+                        {p.trigger}
+                      </p>
                     </div>
                   </button>
                 ))}
@@ -168,7 +191,10 @@ CRITICAL PROTOCOLS FOR DIABETES AND THYROID:
 
             {/* Custom user prompt input */}
             <div className="space-y-1.5">
-              <label className="text-xs font-semibold text-slate-400 block">Or Try Custom Input</label>
+              <label className="text-xs font-semibold text-slate-400 block">
+                Or Try Custom Input
+              </label>
+
               <textarea
                 value={customUserPrompt}
                 onChange={(e) => {
@@ -193,10 +219,28 @@ CRITICAL PROTOCOLS FOR DIABETES AND THYROID:
           >
             {isSynthesizing ? (
               <>
-                <svg className="animate-spin h-4 w-4 text-slate-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                <svg
+                  className="animate-spin h-4 w-4 text-slate-400"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                  />
+
+                  <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                  />
                 </svg>
+
                 <span>Synthesizing Hinglish & Visemes...</span>
               </>
             ) : (
@@ -210,6 +254,7 @@ CRITICAL PROTOCOLS FOR DIABETES AND THYROID:
 
         {/* Right Side: Execution Simulation Output */}
         <div className="lg:col-span-7 bg-white/5 border border-white/10 rounded-xl p-5 shadow-2xl flex flex-col justify-between">
+
           <div className="space-y-4">
             <h4 className="text-xs font-medium tracking-wide text-slate-400">
               Pipeline Output Visualization
@@ -217,34 +262,72 @@ CRITICAL PROTOCOLS FOR DIABETES AND THYROID:
 
             {pipelineOutput ? (
               <div className="space-y-4">
+
                 {/* Visual emotional markup */}
                 <div className="space-y-1.5">
-                  <p className="text-[10px] font-mono text-slate-500 uppercase tracking-widest">A. RAW TOKEN OUTPUT FROM LLM (With Emotional Tags)</p>
-                  <div className="p-3 bg-[#0a0a0c] border border-white/10 rounded-lg text-xs leading-relaxed font-mono">
-                    {/* Syntax highlighting for emotion tags */}
-                    <span className="text-rose-400">&lt;concern&gt;</span>
-                    <span className="text-slate-200">
-                      {pipelineOutput.rawOutput.includes('<concern>') ? pipelineOutput.rawOutput.split('<concern>')[1]?.split('</concern>')[0] : ''}
-                    </span>
-                    <span className="text-rose-400">&lt;/concern&gt;</span>
-                    
-                    <span className="text-emerald-400">&lt;joy&gt;</span>
-                    <span className="text-slate-200">
-                      {pipelineOutput.rawOutput.includes('<joy>') ? pipelineOutput.rawOutput.split('<joy>')[1]?.split('</joy>')[0] : ''}
-                    </span>
-                    <span className="text-emerald-400">&lt;/joy&gt;</span>
+                  <p className="text-[10px] font-mono text-slate-500 uppercase tracking-widest">
+                    A. RAW TOKEN OUTPUT FROM LLM (With Emotional Tags)
+                  </p>
 
-                    <span className="text-blue-400">&lt;neutral&gt;</span>
-                    <span className="text-slate-200">
-                      {pipelineOutput.rawOutput.includes('<neutral>') ? pipelineOutput.rawOutput.split('<neutral>')[1]?.split('</neutral>')[0] : ''}
+                  <div className="p-3 bg-[#0a0a0c] border border-white/10 rounded-lg text-xs leading-relaxed font-mono">
+
+                    {/* Syntax highlighting for emotion tags */}
+                    <span className="text-rose-400">
+                      &lt;concern&gt;
                     </span>
-                    <span className="text-blue-400">&lt;/neutral&gt;</span>
+
+                    <span className="text-slate-200">
+                      {pipelineOutput.rawOutput.includes('<concern>')
+                        ? pipelineOutput.rawOutput
+                            .split('<concern>')[1]
+                            ?.split('</concern>')[0]
+                        : ''}
+                    </span>
+
+                    <span className="text-rose-400">
+                      &lt;/concern&gt;
+                    </span>
+
+                    <span className="text-emerald-400">
+                      &lt;joy&gt;
+                    </span>
+
+                    <span className="text-slate-200">
+                      {pipelineOutput.rawOutput.includes('<joy>')
+                        ? pipelineOutput.rawOutput
+                            .split('<joy>')[1]
+                            ?.split('</joy>')[0]
+                        : ''}
+                    </span>
+
+                    <span className="text-emerald-400">
+                      &lt;/joy&gt;
+                    </span>
+
+                    <span className="text-blue-400">
+                      &lt;neutral&gt;
+                    </span>
+
+                    <span className="text-slate-200">
+                      {pipelineOutput.rawOutput.includes('<neutral>')
+                        ? pipelineOutput.rawOutput
+                            .split('<neutral>')[1]
+                            ?.split('</neutral>')[0]
+                        : ''}
+                    </span>
+
+                    <span className="text-blue-400">
+                      &lt;/neutral&gt;
+                    </span>
                   </div>
                 </div>
 
                 {/* Filtered text to TTS */}
                 <div className="space-y-1.5">
-                  <p className="text-[10px] font-mono text-slate-500 uppercase tracking-widest">B. AUDIO STREAM SENT TO TTS (Tags Stripped, Clean Pronunciation)</p>
+                  <p className="text-[10px] font-mono text-slate-500 uppercase tracking-widest">
+                    B. AUDIO STREAM SENT TO TTS (Tags Stripped, Clean Pronunciation)
+                  </p>
+
                   <p className="p-3 bg-[#0a0a0c] border border-white/10 rounded-lg text-xs text-slate-300 leading-relaxed italic">
                     "{pipelineOutput.strippedText}"
                   </p>
@@ -252,24 +335,41 @@ CRITICAL PROTOCOLS FOR DIABETES AND THYROID:
 
                 {/* Resolved Visemes Timeline */}
                 <div className="space-y-1.5">
-                  <p className="text-[10px] font-mono text-slate-500 uppercase tracking-widest">C. REAL-TIME VISEME BLENDSHAPE TRACK (60fps Interpolation)</p>
+                  <p className="text-[10px] font-mono text-slate-500 uppercase tracking-widest">
+                    C. REAL-TIME VISEME BLENDSHAPE TRACK (60fps Interpolation)
+                  </p>
+
                   <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 max-h-36 overflow-y-auto scrollbar-thin scrollbar-thumb-slate-800 pr-1">
                     {pipelineOutput.visemeMapping.map((v, idx) => (
-                      <div key={idx} className="bg-slate-950/80 border border-slate-900 p-2 rounded flex flex-col space-y-0.5 justify-center">
+                      <div
+                        key={idx}
+                        className="bg-slate-950/80 border border-slate-900 p-2 rounded flex flex-col space-y-0.5 justify-center"
+                      >
                         <div className="flex justify-between items-center text-[9px] font-mono text-slate-500">
                           <span>Frame {v.frame}</span>
-                          <span className="text-sky-400 font-bold">{v.phoneme}</span>
+
+                          <span className="text-sky-400 font-bold">
+                            {v.phoneme}
+                          </span>
                         </div>
-                        <p className="text-[10px] text-slate-300 font-semibold truncate">{v.shape}</p>
+
+                        <p className="text-[10px] text-slate-300 font-semibold truncate">
+                          {v.shape}
+                        </p>
                       </div>
                     ))}
                   </div>
                 </div>
+
               </div>
             ) : (
               <div className="h-64 flex flex-col justify-center items-center text-center p-6 border border-dashed border-white/10 rounded-lg bg-black/20">
                 <Flame className="w-8 h-8 text-slate-600 mb-2 animate-pulse" />
-                <p className="text-xs text-slate-400 font-medium">No active synthesis</p>
+
+                <p className="text-xs text-slate-400 font-medium">
+                  No active synthesis
+                </p>
+
                 <p className="text-[10px] text-slate-500 max-w-sm mt-1">
                   Choose a preset or type a custom phrase on the left, then trigger "Simulate Pipeline Synthesis" to view token streams and viseme coordinate mappings.
                 </p>
@@ -279,13 +379,16 @@ CRITICAL PROTOCOLS FOR DIABETES AND THYROID:
 
           {selectedPresetObj && (
             <div className="mt-4 p-3.5 bg-black/40 border border-white/10 rounded-lg text-xs leading-relaxed text-slate-400 space-y-1">
-              <span className="text-[9px] font-bold tracking-wider text-slate-500 block">ARCHITECT PARSING REASONING:</span>
+              <span className="text-[9px] font-bold tracking-wider text-slate-500 block">
+                ARCHITECT PARSING REASONING:
+              </span>
+
               <p>{selectedPresetObj.hinglishReason}</p>
             </div>
           )}
         </div>
-
       </div>
     </div>
   );
 }
+```
